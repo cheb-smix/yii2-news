@@ -12,7 +12,8 @@ use yii\db\ActiveRecord;
  * @property string $text\
  */
 
-class News extends ActiveRecord{
+class News extends ActiveRecord
+{
 	public function attributeLabels()
 	{
 		return [
@@ -20,6 +21,7 @@ class News extends ActiveRecord{
 			'text'=>'Текст новости'
 		];
 	}
+
 	public function rules()
 	{
 		return [
@@ -27,9 +29,11 @@ class News extends ActiveRecord{
 			[ ['title'], 'string', 'length'=>[5,120], 'message'=>'Wrong' ],
 		];
 	}
+
 	public function getRubric()
 	{
 		return $this->hasMany(NewsToRubric::className(), ['news_id' => 'id'])->with("rubric");
 	}
+	
 }
 

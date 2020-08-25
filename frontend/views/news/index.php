@@ -21,10 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <?php
-function recursivePrinter($rubrics){
-    foreach($rubrics as $rubric){
+function recursivePrinter($rubrics)
+{
+    foreach ($rubrics as $rubric) {
         ?><li><a href="?r=news/rubric&id=<?php echo $rubric["id"];?>"><?php echo $rubric["title"];?></a></li><?php
-        if($rubric["children"]){
+        if ($rubric["children"]) {
             ?><ul class="nav nav-pills nav-stacked span2"><?php
             recursivePrinter($rubric["children"]);
             ?></ul><?php
@@ -43,24 +44,23 @@ $(document).delegate("ul>li>a","click",function(){
         type: "GET",
         dataType: "json",
         success: function(response){
-            if(url.indexOf("rubric")>0){
-                if(response.length==0){
+            if (url.indexOf("rubric")>0) {
+                if (response.length==0) {
                     $("#newslist").html("<i>В данной рубрике новостей не найдено</i>");
-                }else{
+                } else {
                     $("#newslist").html('<h3>Новости рубрики "'+title+'"</h3><ul></ul>');
                 }
                 $("#newslist").show();
                 $("#news").html("");
-                for(let i in response){
+                for (let i in response) {
                     $("#newslist>ul").append('<li data-news-id='+response[i].id+'><a href="?r=news/info&id='+response[i].id+'">'+response[i].title+'</a></li>');
                 }
-            }else if(url.indexOf("info")>0){
+            } else if (url.indexOf("info")>0) {
                 $("#newslist").html($("#newslist").html().replace("Новости","Другие новости"));
                 $("#news").html('<h3>'+response.title+'</h3><div>'+response.text+'</div>');
-                if($("#newslist li[data-news-id!='"+response.id+"']").length == 0){
+                if ($("#newslist li[data-news-id!='"+response.id+"']").length == 0) {
                     $("#newslist").hide();
-                }else{
-                    
+                } else {
                     $("#newslist, #newslist li").show();
                     $("#newslist li[data-news-id='"+response.id+"']").hide("slow");
                 }

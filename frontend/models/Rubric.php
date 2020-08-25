@@ -12,7 +12,9 @@ use yii\db\ActiveRecord;
  * @property integer $parent_rubric_id
  */
 
-class Rubric extends ActiveRecord{
+class Rubric extends ActiveRecord
+{
+	
 	public function attributeLabels()
 	{
 		return [
@@ -20,6 +22,7 @@ class Rubric extends ActiveRecord{
 			'parent_rubric_id'=>'Родительская рубрика'
 		];
 	}
+
 	public function rules()
 	{
 		return [
@@ -27,13 +30,16 @@ class Rubric extends ActiveRecord{
 			[ ['title'], 'string', 'length'=>[5,70], 'message'=>'Wrong' ],
 		];
 	}
+
 	public function getChildren()
 	{
 		return $this->hasMany(Rubric::className(), ['parent_rubric_id' => 'id'])->with("children");
-    }
+	}
+	
     public function getNews()
     {
         return $this->hasMany(NewsToRubric::className(), ['rubric_id' => 'id'])->with("news");
-    }
+	}
+	
 }
 
