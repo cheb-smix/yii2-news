@@ -33,9 +33,10 @@ function recursivePrinter($rubrics){
 }
 $JS = <<< JS
 $(document).delegate("ul>li>a","click",function(){
+    $("ul>li>a").removeClass("active");
     let url = $(this).attr("href");
-    let title = $(this).html();
-    console.log(this);
+    let title = $(this).addClass("active").html();
+
     $("#news").hide("fast");
     $.ajax({
         url: url,
@@ -76,6 +77,9 @@ JS;
 $CSS = <<< CSS
 ul ul{
     padding-left: +20px !important;
+}
+li>a.active{
+    background: #eee;
 }
 CSS;
 $this->registerJs( $JS );
